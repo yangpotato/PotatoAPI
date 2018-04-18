@@ -7,10 +7,10 @@ public class User {
     private String headImg;
     private String background;
     private String pwd;
-    private String sex;
+    private Integer sex;
     private String regTime;
     private String loginTime;
-    private String status;
+    private Integer status;
 
     public String getUserId() {
         return userId;
@@ -60,11 +60,11 @@ public class User {
         this.pwd = pwd;
     }
 
-    public String getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
@@ -84,11 +84,11 @@ public class User {
         this.loginTime = loginTime;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 }

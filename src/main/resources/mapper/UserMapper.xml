@@ -13,10 +13,11 @@
     </resultMap>
 
     <parameterMap id="User" type="com.yang.project.model.User"/>
-
+    <parameterMap id="Follow" type="com.yang.project.model.Follow"/>
+    <parameterMap id="Letter" type="com.yang.project.model.Letter"/>
 
     <sql id="Column_List">
-        user_id, code, nick_name, head_img, background, sex, reg_time, login_time
+        user.user_id, code, nick_name, head_img, background, sex, reg_time, login_time
     </sql>
 
     <select id="login" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -28,8 +29,89 @@
         </if>
         <if test="code != null">
         and pwd = #{pwd}
+        and status = 0
         </if>
     </select>
 
+    <update id="update"  parameterType="User">
+       UPDATE user
+        <set>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="pwd != null">
+                pwd = #{pwd},
+            </if>
+            <if test="nickName != null">
+                nick_name = #{nickName},
+            </if>
+            <if test="headImg != null">
+                head_img = #{headImg},
+            </if>
+            <if test="background != null">
+                background = #{background},
+            </if>
+
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="loginTime != null">
+                login_time = #{loginTime},
+            </if>
+            <if test="regTime != null">
+                reg_time = #{regTime},
+            </if>
+
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        WHERE  user_id = #{userId}
+    </update>
+
+    <insert id="register"  parameterType="User">
+        insert into
+        user(code, pwd, reg_time, status)
+        VALUES(#{code}, #{pwd},#{regTime}, 0)
+    </insert>
+
+    <select id="findMaxId" resultType="java.lang.Integer">
+      select MAX(user_id) from user
+    </select>
+
+
+    <insert id="attention"  parameterType="Follow">
+        insert into
+        follow(user_id, follow_id, create_time, status)
+        VALUES(#{userId}, #{followId},#{createTime}, 0)
+    </insert>
+
+
+    <update id="cancelAttention"  parameterType="Follow">
+        UPDATE follow
+        <set>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        WHERE  user_id = #{userId}
+        and follow_id = #{followId}
+    </update>
+
+
+    <select id="getAttention" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Column_List"/>
+         from `user`,follow
+        where `user`.user_id = follow.follow_id
+        and `follow`.user_id = #{userId}
+        and follow.`status` = 0
+    </select>
+
+    <insert id="sendLetter"  parameterType="Letter" >
+        insert into
+        letter(user_id, other_id, info, create_time)
+        VALUES(#{userId}, #{otherId}, #{info}, #{createTime})
+    </insert>
 
 </mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yang.project.dao.AlbumDao">
+    <resultMap id="BaseResultMap" type="com.yang.project.model.User">
+        <result column="album_id" property="albumId" />
+        <result column="user_id" property="userId" />
+        <result column="title" property="title" />
+        <result column="img" property="img" />
+        <result column="info" property="info" />
+        <result column="create_time" property="createTime" />
+        <result column="zan" property="zan" />
+        <result column="collection" property="collection" />
+        <result column="comment" property="comment"/>
+    </resultMap>
+
+    <parameterMap id="User" type="com.yang.project.model.User"/>
+    <parameterMap id="Follow" type="com.yang.project.model.Follow"/>
+    <parameterMap id="Album" type="com.yang.project.model.Album"/>
+    <parameterMap id="Video" type="com.yang.project.model.Video"/>
+
+
+    <sql id="Column_List">
+        album_id, user_id, title, img, info, create_time, zan, collection, comment
+    </sql>
+
+
+    <insert id="uploadAlbum"  parameterType="Album" >
+        insert into
+        album(user_id, title, img, info, create_time, zan, collection, comment)
+        VALUES(#{userId}, #{title},#{img}, #{info}, #{createTime}, #{zan}, #{collection}, #{comment})
+    </insert>
+
+
+    <insert id="uploadVideo"  parameterType="Video" >
+        insert into
+        video(user_id, title, video_url, info, create_time, zan, collection, comment)
+        VALUES(#{userId}, #{title},#{videoUrl}, #{info}, #{createTime}, #{zan}, #{collection}, #{comment})
+    </insert>
+
+
+</mapper>
