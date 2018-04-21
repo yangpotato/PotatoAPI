@@ -68,11 +68,11 @@ public class Album {
         this.zan = zan;
     }
 
-    public Integer getCollection() {
+    public Integer getCollectio() {
         return collection;
     }
 
-    public void setCollection(Integer collection) {
+    public void setCollectio(Integer collection) {
         this.collection = collection;
     }
 

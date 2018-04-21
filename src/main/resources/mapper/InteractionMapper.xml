@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yang.project.dao.InteractionDao">
+    <resultMap id="BaseResultMap" type="com.yang.project.model.Comment">
+        <result column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="album_id" property="albumId" />
+        <result column="video_id" property="videoId" />
+        <result column="info" property="info" />
+        <result column="create_time" property="createTime" />
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <parameterMap id="Comment" type="com.yang.project.model.Comment"/>
+    <parameterMap id="CollectionZan" type="com.yang.project.model.CollectionZan"/>
+
+
+    <sql id="Column_List">
+        id, user_id, album_id, video_id info, create_time, status
+    </sql>
+
+
+    <insert id="comment"  parameterType="Comment" >
+        insert into
+        comment(user_id,
+        <if test="albumId != null">
+        album_id,
+        </if>
+        <if test="videoId != null">
+        video_id,
+        </if>
+        info, create_time)
+        VALUES(#{userId},
+        <if test="albumId != null">
+        #{albumId},
+        </if>
+        <if test="videoId != null">
+        #{videoId},
+        </if>
+        #{info}, #{createTime})
+    </insert>
+
+
+
+    <insert id="collection"  parameterType="CollectionZan" >
+        insert into
+        collection(user_id,
+        <if test="albumId != null">
+            album_id,
+        </if>
+        <if test="videoId != null">
+            video_id,
+        </if>
+        type, create_time)
+        VALUES(#{userId},
+        <if test="albumId != null">
+            #{albumId},
+        </if>
+        <if test="videoId != null">
+            #{videoId},
+        </if>
+        #{type}, #{createTime})
+    </insert>
+
+
+
+
+    <update id="deleteComment"  parameterType="java.lang.String">
+        UPDATE comment
+        <set>
+            <if test="commentId != null">
+                status = 1,
+            </if>
+        </set>
+        WHERE  id = #{commentId}
+    </update>
+
+
+</mapper>

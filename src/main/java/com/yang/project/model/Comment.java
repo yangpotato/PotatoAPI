@@ -1,30 +1,14 @@
 package com.yang.project.model;
 
-public class Letter {
+public class Comment {
+
     private String id;
     private String userId;
-    private String otherId;
+    private String albumId;
+    private String videoId;
     private String info;
     private String createTime;
     private Integer status;
-    private String nickName;
-    private String headImg;
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getHeadImg() {
-        return headImg;
-    }
-
-    public void setHeadImg(String headImg) {
-        this.headImg = headImg;
-    }
 
     public String getId() {
         return id;
@@ -42,12 +26,20 @@ public class Letter {
         this.userId = userId;
     }
 
-    public String getOtherId() {
-        return otherId;
+    public String getAlbumId() {
+        return albumId;
     }
 
-    public void setOtherId(String otherId) {
-        this.otherId = otherId;
+    public void setAlbumId(String albumId) {
+        this.albumId = albumId;
+    }
+
+    public String getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
     }
 
     public String getInfo() {

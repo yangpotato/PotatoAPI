@@ -14,6 +14,8 @@ import com.yang.project.service.UserService;
 import com.yang.project.utils.JpushUtils;
 import com.yang.project.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,8 +34,12 @@ public class UserController {
     @Autowired
     UserService service;
 
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
+
     private BaseModel baseModel = new BaseModel();
 
+    //登录
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public BaseModel login(@RequestParam("code") String code,
                       @RequestParam("pwd") String pwd,
@@ -42,6 +48,9 @@ public class UserController {
         try {
             user = service.Login(code, Util.md5(pwd));
             if(user != null){
+                redisTemplate.opsForValue().set("890qwe","0000000");
+                redisTemplate.opsForValue().set(session.getId(),user.getUserId());
+                System.out.println("----->"+redisTemplate.opsForValue().get(session.getId()));
                 session.setAttribute(session.getId(), user.getUserId());
                 System.out.println(session.getAttribute(session.getId()));
                 user.setLoginTime(System.currentTimeMillis() + "");
@@ -63,7 +72,7 @@ public class UserController {
         return baseModel;
     }
 
-
+    //注册
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public BaseModel register(@RequestParam("code") String code,
                            @RequestParam("pwd") String pwd){
@@ -89,6 +98,7 @@ public class UserController {
         return baseModel;
     }
 
+    //修改用户信息
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     public BaseModel modify(HttpServletRequest request,
                                HttpSession session){
@@ -149,6 +159,7 @@ public class UserController {
         return baseModel;
     }
 
+    //关注
     @RequestMapping(value = "/attention", method = RequestMethod.POST)
     public BaseModel attention(HttpServletRequest request,
                             HttpSession session){
@@ -187,6 +198,7 @@ public class UserController {
         return baseModel;
     }
 
+    //取消关注
     @RequestMapping(value = "/cancelAttention", method = RequestMethod.POST)
     public BaseModel cancelAttention(HttpServletRequest request,
                                HttpSession session){
@@ -226,6 +238,7 @@ public class UserController {
         return baseModel;
     }
 
+    //关注列表
     @RequestMapping(value = "/getAttention", method = RequestMethod.GET)
     public BaseModel getAttention(HttpServletRequest request,
                                      HttpSession session){
@@ -262,9 +275,10 @@ public class UserController {
     }
 
 
+    //发送私信
     @RequestMapping(value = "/sendLetter", method = RequestMethod.POST)
     public BaseModel sendLetter(HttpServletRequest request,
-                            HttpSession session){
+                                HttpSession session){
         String info = request.getParameter("info");
         String otherId = request.getParameter("otherId");
         System.out.println(session.getAttribute(session.getId()));
@@ -300,6 +314,42 @@ public class UserController {
             baseModel.setStatus(2);
             baseModel.setData(e.toString());
             baseModel.setMsg("发送失败");
+        }
+        return baseModel;
+    }
+
+    //发送私信
+    @RequestMapping(value = "/getLetter", method = RequestMethod.POST)
+    public BaseModel getLetter(HttpServletRequest request,
+                                HttpSession session){
+        System.out.println(session.getAttribute(session.getId()));
+        String id = (String) session.getAttribute(session.getId());
+        try {
+            if (id != null) {
+                List<Letter> list = service.getLetter(id);
+                if (list != null && list.size() > 0) {
+                    System.out.println("345");
+                    JpushUtils.sendAll("ppppp");
+                    baseModel.setStatus(0);
+                    baseModel.setData(list);
+                    baseModel.setMsg("请求成功");
+                } else {
+                    //消息为空时
+                    baseModel.setStatus(1);
+                    baseModel.setData(null);
+                    baseModel.setMsg("请求失败");
+                }
+
+            } else {
+                baseModel.setStatus(10);
+                baseModel.setData(null);
+                baseModel.setMsg("登录失效");
+            }
+        }catch (Exception e){
+            System.out.println(e.toString());
+            baseModel.setStatus(2);
+            baseModel.setData(e.toString());
+            baseModel.setMsg("请求失败");
         }
         return baseModel;
     }

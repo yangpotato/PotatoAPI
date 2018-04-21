@@ -25,4 +25,6 @@ public interface UserDao {
     List<User> getAttention(@Param("userId") String userId);
 
     Long sendLetter(Letter letter);
+
+    List<Letter> getLetter(@Param("userId") String userId);
 }

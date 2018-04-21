@@ -12,6 +12,18 @@
         <result column="login_time" property="loginTime"/>
     </resultMap>
 
+    <resultMap id="Letter" type="com.yang.project.model.Letter">
+        <result column="user_id" property="userId" />
+        <result column="id" property="id" />
+        <result column="nick_name" property="nickName" />
+        <result column="head_img" property="headImg" />
+        <result column="other_id" property="otherId" />
+        <result column="info" property="info" />
+        <result column="create_time" property="createTime" />
+        <result column="status" property="status" />
+    </resultMap>
+
+
     <parameterMap id="User" type="com.yang.project.model.User"/>
     <parameterMap id="Follow" type="com.yang.project.model.Follow"/>
     <parameterMap id="Letter" type="com.yang.project.model.Letter"/>
@@ -113,5 +125,16 @@
         letter(user_id, other_id, info, create_time)
         VALUES(#{userId}, #{otherId}, #{info}, #{createTime})
     </insert>
+
+
+
+    <select id="getLetter" parameterType="java.lang.String" resultMap="Letter">
+        select
+        id, letter.user_id, other_id, info, create_time, nick_name, head_img, status
+        from user,letter
+        where letter.other_id = `user`.user_id
+        and letter.user_id = #{userId}
+        and letter.`status` = 0
+    </select>
 
 </mapper>

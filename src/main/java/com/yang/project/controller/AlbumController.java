@@ -41,7 +41,7 @@ public class AlbumController {
                 album.setTitle(title);
                 album.setCreateTime(System.currentTimeMillis() + "");
                 album.setZan(0);
-                album.setCollection(0);
+                album.setCollectio(0);
                 album.setComment(0);
                 Long update = albumService.uploadAlbum(album);
                 if (update != null && update > 0) {

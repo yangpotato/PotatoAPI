@@ -54,4 +54,10 @@ public class UserServiceImpl implements UserService {
     public Long sendLetter(Letter letter) {
         return userDao.sendLetter(letter);
     }
+
+    @Override
+    public List<Letter> getLetter(String userId) {
+        return userDao.getLetter(userId);
+    }
+
 }

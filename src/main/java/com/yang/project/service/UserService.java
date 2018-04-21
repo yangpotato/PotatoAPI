@@ -22,4 +22,6 @@ public interface UserService {
     List<User> getAttention(String userId);
 
     Long sendLetter(Letter letter);
+
+    List<Letter> getLetter(String userId);
 }
