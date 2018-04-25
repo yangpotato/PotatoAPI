@@ -22,4 +22,9 @@ public class AlbumServiceImpl implements AlbumService {
     public Long uploadVideo(Video video) {
         return albumDao.uploadVideo(video);
     }
+
+    @Override
+    public Album selectAlbum(Integer id) {
+        return albumDao.selectAlbum(id);
+    }
 }

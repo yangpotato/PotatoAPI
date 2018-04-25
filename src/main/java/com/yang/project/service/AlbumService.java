@@ -7,4 +7,6 @@ public interface AlbumService {
     Long uploadAlbum(Album album);
 
     Long uploadVideo(Video video);
+
+    Album selectAlbum(Integer id);
 }

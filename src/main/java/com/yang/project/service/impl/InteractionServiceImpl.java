@@ -7,6 +7,8 @@ import com.yang.project.service.InteractionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class InteractionServiceImpl implements InteractionService {
 
@@ -26,5 +28,10 @@ public class InteractionServiceImpl implements InteractionService {
     @Override
     public Long collection(CollectionZan collection) {
         return interactionDao.collection(collection);
+    }
+
+    @Override
+    public List<CollectionZan> getCollection(String userId) {
+        return interactionDao.getCollection(userId);
     }
 }

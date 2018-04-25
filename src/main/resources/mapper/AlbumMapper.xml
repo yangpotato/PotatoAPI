@@ -9,32 +9,56 @@
         <result column="info" property="info" />
         <result column="create_time" property="createTime" />
         <result column="zan" property="zan" />
-        <result column="collection" property="collection" />
+        <result column="collecti" property="collecti" />
         <result column="comment" property="comment"/>
     </resultMap>
+    
+    <resultMap id="SeAlbum" type="com.yang.project.model.Album">
+        <id column="album_id" property="id"/>
+        <result column="user_Id" property="userId" />
+        <result column="title" property="title" />
+        <result column="img" property="img" />
+        <result column="info" property="info" />
+        <result column="create_time" property="createTime" />
+        <result column="zan" property="zan" />
+        <result column="collecti" property="collecti" />
+        <result column="comment" property="comment" />
+        <collection column="album_id" property="photos" ofType="Photo">
+            <id column="id" property="id"/>
+            <result column="img_url" property="imgUrl"/>
+
+        </collection>
+    </resultMap>
+
+
+    <select id="selectAlbum"  resultMap="SeAlbum">
+        select * from album, photo where album.album_id = photo.album_id and user_id = #{id}
+    </select>
+    
 
     <parameterMap id="User" type="com.yang.project.model.User"/>
     <parameterMap id="Follow" type="com.yang.project.model.Follow"/>
     <parameterMap id="Album" type="com.yang.project.model.Album"/>
     <parameterMap id="Video" type="com.yang.project.model.Video"/>
+    <parameterMap id="Photo" type="com.yang.project.model.Photo"/>
 
 
     <sql id="Column_List">
-        album_id, user_id, title, img, info, create_time, zan, collection, comment
+        album_id, user_id, title, img, info, create_time, zan, collecti, comment
     </sql>
 
 
     <insert id="uploadAlbum"  parameterType="Album" >
         insert into
-        album(user_id, title, img, info, create_time, zan, collection, comment)
-        VALUES(#{userId}, #{title},#{img}, #{info}, #{createTime}, #{zan}, #{collection}, #{comment})
+        album(user_id, title, img, info, create_time, zan, collecti, comment)
+        VALUES(#{userId}, #{title},#{img}, #{info}, #{createTime}, #{zan}, #{collecti}, #{comment})
     </insert>
 
 
     <insert id="uploadVideo"  parameterType="Video" >
         insert into
-        video(user_id, title, video_url, info, create_time, zan, collection, comment)
-        VALUES(#{userId}, #{title},#{videoUrl}, #{info}, #{createTime}, #{zan}, #{collection}, #{comment})
+        video(user_id, title, video_url, info, create_time, zan, collecti, comment)
+        VALUES(#{userId}, #{title},#{videoUrl}, #{info}, #{createTime}, #{zan}, #{collecti}, #{comment})
     </insert>
 
 

@@ -149,4 +149,47 @@ public class InteractionController {
         return baseModel;
     }
 
+//    //获取已点赞收藏列表
+//    @RequestMapping(value = "/getCollection", method = RequestMethod.GET)
+//    public BaseModel getCollection(HttpServletRequest request,
+//                                HttpSession session){
+//        String userId = (String) session.getAttribute(session.getId());
+//
+//        System.out.println(session.getAttribute(session.getId()));
+//        try {
+//            if (userId != null) {
+//                CollectionZan collection = new CollectionZan();
+//                if("0".equals(type))
+//                    collection.setAlbumId(id);
+//                else
+//                    collection.setVideoId(id);
+//                collection.setUserId(userId);
+//                collection.setCreateTime(System.currentTimeMillis() + "");
+//                collection.setType(aType);
+//                Long number = service.collection(collection);
+//                if (number != null && number > 0) {
+//                    JpushUtils.sendAll("ppppp");
+//                    baseModel.setStatus(0);
+//                    baseModel.setData(null);
+//                    baseModel.setMsg("请求成功");
+//                } else {
+//                    baseModel.setStatus(1);
+//                    baseModel.setData(null);
+//                    baseModel.setMsg("请求失败");
+//                }
+//
+//            } else {
+//                baseModel.setStatus(10);
+//                baseModel.setData(null);
+//                baseModel.setMsg("登录失效");
+//            }
+//        }catch (Exception e){
+//            System.out.println(e.toString());
+//            baseModel.setStatus(2);
+//            baseModel.setData(e.toString());
+//            baseModel.setMsg("请求失败");
+//        }
+//        return baseModel;
+//    }
+
 }

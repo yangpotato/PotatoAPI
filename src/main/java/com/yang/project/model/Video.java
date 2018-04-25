@@ -8,7 +8,7 @@ public class Video {
     private String videoUrl;
     private String createTime;
     private Integer zan;
-    private Integer collection;
+    private Integer collecti;
     private Integer comment;
     private Integer status;
 
@@ -68,12 +68,12 @@ public class Video {
         this.zan = zan;
     }
 
-    public Integer getCollection() {
-        return collection;
+    public Integer getCollecti() {
+        return collecti;
     }
 
-    public void setCollection(Integer collection) {
-        this.collection = collection;
+    public void setCollecti(Integer collecti) {
+        this.collecti = collecti;
     }
 
     public Integer getComment() {

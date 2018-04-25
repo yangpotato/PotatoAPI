@@ -41,7 +41,7 @@ public class AlbumController {
                 album.setTitle(title);
                 album.setCreateTime(System.currentTimeMillis() + "");
                 album.setZan(0);
-                album.setCollectio(0);
+                album.setCollecti(0);
                 album.setComment(0);
                 Long update = albumService.uploadAlbum(album);
                 if (update != null && update > 0) {
@@ -86,7 +86,7 @@ public class AlbumController {
                 album.setTitle(title);
                 album.setCreateTime(System.currentTimeMillis() + "");
                 album.setZan(0);
-                album.setCollection(0);
+                album.setCollecti(0);
                 album.setComment(0);
                 Long update = albumService.uploadVideo(album);
                 if (update != null && update > 0) {
@@ -110,6 +110,39 @@ public class AlbumController {
             baseModel.setStatus(2);
             baseModel.setData(e.toString());
             baseModel.setMsg("上传失败");
+        }
+        return baseModel;
+    }
+
+    @RequestMapping(value = "/selectAlbum", method = RequestMethod.POST)
+    public BaseModel selectAlbum(HttpServletRequest request,
+                                 HttpSession session){
+        System.out.println(session.getAttribute(session.getId()));
+        String id = (String) session.getAttribute(session.getId());
+        try {
+            if (id != null) {
+                Album album = albumService.selectAlbum(Integer.parseInt(id));
+                if (album != null ) {
+                    JpushUtils.sendAll("ppppp");
+                    baseModel.setStatus(0);
+                    baseModel.setData(album);
+                    baseModel.setMsg("成功");
+                } else {
+                    baseModel.setStatus(1);
+                    baseModel.setData(null);
+                    baseModel.setMsg("失败");
+                }
+
+            } else {
+                baseModel.setStatus(10);
+                baseModel.setData(null);
+                baseModel.setMsg("登录失效");
+            }
+        }catch (Exception e){
+            System.out.println(e.toString());
+            baseModel.setStatus(2);
+            baseModel.setData(e.toString());
+            baseModel.setMsg("失败");
         }
         return baseModel;
     }

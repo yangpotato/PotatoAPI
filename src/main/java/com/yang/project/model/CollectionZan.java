@@ -8,6 +8,34 @@ public class CollectionZan {
     private String type;
     private String createTime;
     private String status;
+    private String title;
+    private String img;
+    //0点赞  1收藏
+    private String aType;
+
+    public String getaType() {
+        return aType;
+    }
+
+    public void setaType(String aType) {
+        this.aType = aType;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 
     public String getId() {
         return id;

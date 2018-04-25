@@ -1,5 +1,7 @@
 package com.yang.project.model;
 
+import java.util.List;
+
 public class Album {
     private String id;
     private String userId;
@@ -8,9 +10,27 @@ public class Album {
     private String info;
     private String createTime;
     private Integer zan;
-    private Integer collection;
+    private Integer collecti;
     private Integer comment;
     private Integer status;
+    private List<Photo> photos;
+
+
+    public Integer getCollecti() {
+        return collecti;
+    }
+
+    public void setCollecti(Integer collecti) {
+        this.collecti = collecti;
+    }
+
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
+    }
 
     public String getId() {
         return id;
@@ -68,13 +88,6 @@ public class Album {
         this.zan = zan;
     }
 
-    public Integer getCollectio() {
-        return collection;
-    }
-
-    public void setCollectio(Integer collection) {
-        this.collection = collection;
-    }
 
     public Integer getComment() {
         return comment;
